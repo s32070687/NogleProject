@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/fg_a"
+        android:icon="@drawable/icon_market_list"
+        android:title="@string/tab_market_list"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:icon="@drawable/icon_market_list"
+        android:id="@+id/fg_b"
+        android:title="@string/tab_b"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:icon="@drawable/icon_market_list"
+        android:id="@+id/fg_c"
+        android:title="@string/tab_c"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:icon="@drawable/icon_market_list"
+        android:id="@+id/fg_d"
+        android:title="@string/tab_d"
+        app:showAsAction="ifRoom"/>
+
+</menu>

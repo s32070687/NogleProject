@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/fg_a"
+    android:id="@+id/nav_graph">
+
+    <fragment
+        android:id="@+id/fg_a"
+        android:name="com.eulsapet.nogleproject.view.fragment.FragmentA"
+        android:label="fragment_a"
+        tools:layout="@layout/fragment_a" />
+
+    <fragment
+        android:id="@+id/fg_b"
+        android:name="com.eulsapet.nogleproject.view.fragment.FragmentB"
+        android:label="fragment_b"
+        tools:layout="@layout/fragment_b" />
+
+    <fragment
+        android:id="@+id/fg_c"
+        android:name="com.eulsapet.nogleproject.view.fragment.FragmentC"
+        android:label="fragment_c"
+        tools:layout="@layout/fragment_c" />
+
+    <fragment
+        android:id="@+id/fg_d"
+        android:name="com.eulsapet.nogleproject.view.fragment.FragmentD"
+        android:label="fragment_d"
+        tools:layout="@layout/fragment_d" />
+
+</navigation>

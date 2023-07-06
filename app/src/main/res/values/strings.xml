@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">NogleProject</string>
+
+    <string name="tab_market_list">市場列表</string>
+    <string name="tab_b">頁面B</string>
+    <string name="tab_c">頁面C</string>
+    <string name="tab_d">頁面D</string>
+
 </resources>
