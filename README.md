@@ -23,11 +23,11 @@
 ### Data source
 
 * API path - https://api.btse.com/futures/api/inquire/initial/market
-* Use parameter symbol to display name
-* Use parameter future to distinguish between spot and futures
+  * Use parameter symbol to display name
+  * Use parameter future to distinguish between spot and futures
 * WS path - wss://ws.btse.com/ws/futures
-* Reference https://btsecom.github.io/docs/futures/en/#subscription
-* Send {"op": "subscribe", "args": ["coinIndex"]} after socket connected
-* Refer Appendix 1 for response format
-* Use parameter type = 1 only
-* Use parameter price to display price
+  * Reference https://btsecom.github.io/docs/futures/en/#subscription
+  * Send {"op": "subscribe", "args": ["coinIndex"]} after socket connected
+  * Refer Appendix 1 for response format
+  * Use parameter type = 1 only
+  * Use parameter price to display price
