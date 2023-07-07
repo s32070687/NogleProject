@@ -85,10 +85,14 @@ class FragmentA: Fragment() {
     private fun observe() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.data.collectLatest {
+                viewModel.data.collectLatest { list ->
                     binding.pbLoading.visibility = View.GONE
-                    if (it.msg.isNotEmpty()) {
-                        markListAdapter.submitList(it.data.sortedBy { data -> data.marketName })
+                    if (list.msg.isNotEmpty()) {
+                        val spotData = list.data.filter { it.future }
+                        markListAdapter.submitList(
+                            spotData.sortedBy { data ->
+                                data.marketName
+                            })
 //                        Snackbar.make(binding.root, R.string.api_error, Snackbar.LENGTH_SHORT)
 //                            .show()
                     } else Log.e("Jason","error")
