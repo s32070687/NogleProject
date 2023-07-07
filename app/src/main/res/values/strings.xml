@@ -6,4 +6,5 @@
     <string name="tab_c">頁面C</string>
     <string name="tab_d">頁面D</string>
 
+    <string name="api_error">連線異常</string>
 </resources>

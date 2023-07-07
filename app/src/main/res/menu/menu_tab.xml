@@ -4,24 +4,24 @@
 
     <item
         android:id="@+id/fg_a"
-        android:icon="@drawable/icon_market_list"
+        android:icon="@drawable/icon_market_list_24"
         android:title="@string/tab_market_list"
         app:showAsAction="ifRoom"/>
 
     <item
-        android:icon="@drawable/icon_market_list"
+        android:icon="@drawable/icon_page_24"
         android:id="@+id/fg_b"
         android:title="@string/tab_b"
         app:showAsAction="ifRoom"/>
 
     <item
-        android:icon="@drawable/icon_market_list"
+        android:icon="@drawable/icon_page_24"
         android:id="@+id/fg_c"
         android:title="@string/tab_c"
         app:showAsAction="ifRoom"/>
 
     <item
-        android:icon="@drawable/icon_market_list"
+        android:icon="@drawable/icon_page_24"
         android:id="@+id/fg_d"
         android:title="@string/tab_d"
         app:showAsAction="ifRoom"/>
