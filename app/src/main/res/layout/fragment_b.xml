@@ -10,7 +10,7 @@
 
         <TextView
             android:textSize="24sp"
-            android:text="FragmentB"
+            android:text="@string/tab_b"
             android:id="@+id/tv_2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

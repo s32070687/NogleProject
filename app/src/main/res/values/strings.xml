@@ -2,9 +2,12 @@
     <string name="app_name">NogleProject</string>
 
     <string name="tab_market_list">市場列表</string>
-    <string name="tab_b">頁面B</string>
-    <string name="tab_c">頁面C</string>
-    <string name="tab_d">頁面D</string>
+    <string name="tab_b">Page B</string>
+    <string name="tab_c">Page C</string>
+    <string name="tab_d">Page D</string>
 
     <string name="api_error">連線異常</string>
+
+    <string name="tab_spot">Spot</string>
+    <string name="tab_futures">Futures</string>
 </resources>

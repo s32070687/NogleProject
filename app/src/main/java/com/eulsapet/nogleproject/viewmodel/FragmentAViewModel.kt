@@ -2,14 +2,14 @@ package com.eulsapet.nogleproject.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.eulsapet.nogleproject.repository.MainRepository
+import com.eulsapet.nogleproject.repository.FragmentARepository
 import com.eulsapet.nogleproject.repository.model.MarketList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class MainViewModel(
-    private val mainRepository: MainRepository
+class FragmentAViewModel(
+    private val mainRepository: FragmentARepository
 ): ViewModel() {
 
     private val _data = MutableStateFlow(MarketList())
