@@ -15,6 +15,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.eulsapet.nogleproject.R
 import com.eulsapet.nogleproject.databinding.FragmentABinding
 import com.eulsapet.nogleproject.repository.FragmentARepository
+import com.eulsapet.nogleproject.view.adapter.MarketListAdapter
 import com.eulsapet.nogleproject.viewmodel.FragmentAViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
@@ -40,6 +41,13 @@ class FragmentA: Fragment() {
         }
     }
 
+    /**
+     * Adapter
+     */
+    private val markListAdapter: MarketListAdapter by lazy {
+        MarketListAdapter()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,6 +59,9 @@ class FragmentA: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            adapter = markListAdapter
+        }
         initView()
         viewModel.getMarketList()
         observe()
@@ -75,14 +86,20 @@ class FragmentA: Fragment() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.data.collectLatest {
-                    Log.e("Jason","$it cc")
                     binding.pbLoading.visibility = View.GONE
                     if (it.msg.isNotEmpty()) {
-                        Snackbar.make(binding.root, R.string.api_error, Snackbar.LENGTH_SHORT)
-                            .show()
-                    } else Snackbar.make(binding.root, R.string.api_error, Snackbar.LENGTH_SHORT).show()
+                        markListAdapter.submitList(it.data)
+//                        Snackbar.make(binding.root, R.string.api_error, Snackbar.LENGTH_SHORT)
+//                            .show()
+                    } else Log.e("Jason","error")
+//                        Snackbar.make(binding.root, R.string.api_error, Snackbar.LENGTH_SHORT).show()
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
