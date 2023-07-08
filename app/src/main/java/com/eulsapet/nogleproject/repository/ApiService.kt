@@ -12,6 +12,7 @@ interface ApiService {
     companion object {
         private const val BASE_URL = "https://api.btse.com/"
         private const val WEB_SOCKET_BASE_URL = "wss://ws.btse.com/"
+
         private fun createApiClient(): ApiService {
             val builder = Retrofit.Builder()
                 .baseUrl(BASE_URL)

@@ -1,7 +1,6 @@
 package com.eulsapet.nogleproject.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +11,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.eulsapet.nogleproject.R
 import com.eulsapet.nogleproject.databinding.FragmentABinding
 import com.eulsapet.nogleproject.repository.FragmentARepository
 import com.eulsapet.nogleproject.view.adapter.MarketListAdapter
 import com.eulsapet.nogleproject.viewmodel.FragmentAViewModel
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -64,39 +61,35 @@ class FragmentA: Fragment() {
         }
         initView()
         viewModel.getMarketList()
-        observe()
+        checkTab()
     }
 
     private fun initView() {
-        binding.rbSpot.setOnClickListener {
-            binding.rbSpot.isChecked = true
-            binding.rbFutures.isChecked = false
-        }
-
-        binding.rbFutures.setOnClickListener {
-            binding.rbFutures.isChecked = true
-            binding.rbSpot.isChecked = false
-        }
+        binding.rgGroup.setOnCheckedChangeListener { _, _ -> checkTab() }
     }
 
-    /**
-     *  observe
-     */
-    private fun observe() {
+    private fun checkTab() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.data.collectLatest { list ->
                     binding.pbLoading.visibility = View.GONE
-                    if (list.msg.isNotEmpty()) {
-                        val spotData = list.data.filter { it.future }
-                        markListAdapter.submitList(
-                            spotData.sortedBy { data ->
-                                data.marketName
-                            })
-//                        Snackbar.make(binding.root, R.string.api_error, Snackbar.LENGTH_SHORT)
-//                            .show()
-                    } else Log.e("Jason","error")
-//                        Snackbar.make(binding.root, R.string.api_error, Snackbar.LENGTH_SHORT).show()
+                    if (list.data.isNotEmpty()) {
+                        if (binding.rbSpot.isChecked) {
+                            // 現貨
+                            val spotData = list.data.filter { !it.future }
+                            markListAdapter.submitList(
+                                spotData.sortedBy { data ->
+                                    data.marketName
+                                })
+                        } else {
+                            // 期貨
+                            val spotData = list.data.filter { it.future }
+                            markListAdapter.submitList(
+                                spotData.sortedBy { data ->
+                                    data.marketName
+                                })
+                        }
+                    }
                 }
             }
         }
