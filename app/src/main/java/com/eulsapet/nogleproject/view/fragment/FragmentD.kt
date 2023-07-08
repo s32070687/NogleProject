@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.eulsapet.nogleproject.R
 import com.eulsapet.nogleproject.databinding.FragmentDBinding
 
 class FragmentD: Fragment() {
@@ -27,6 +29,7 @@ class FragmentD: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.ibSetting.setOnClickListener {
+            val navController = findNavController()
         }
     }
 

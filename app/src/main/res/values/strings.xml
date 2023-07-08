@@ -5,6 +5,7 @@
     <string name="tab_b">Page B</string>
     <string name="tab_c">Page C</string>
     <string name="tab_d">Page D</string>
+    <string name="tab_setting">Setting</string>
 
     <string name="msg_leave">Close APP?</string>
     <string name="msg_confirm">Confirm</string>
