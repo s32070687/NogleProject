@@ -27,6 +27,19 @@
         android:id="@+id/fg_d"
         android:name="com.eulsapet.nogleproject.view.fragment.FragmentD"
         android:label="fragment_d"
-        tools:layout="@layout/fragment_d" />
+        tools:layout="@layout/fragment_d" >
+
+        <action
+            android:id="@+id/action_fg_d_to_fg_setting"
+            app:popUpTo="@+id/fg_d"
+            app:destination="@id/fg_setting" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fg_setting"
+        android:name="com.eulsapet.nogleproject.view.fragment.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting"/>
 
 </navigation>
