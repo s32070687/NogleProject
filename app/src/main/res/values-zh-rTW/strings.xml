@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">NogleProject</string>
+
+    <string name="tab_market_list">市場列表</string>
+    <string name="tab_b">Page B</string>
+    <string name="tab_c">Page C</string>
+    <string name="tab_d">Page D</string>
+
+    <string name="msg_leave">關閉APP?</string>
+    <string name="msg_confirm">確認</string>
+    <string name="msg_cancel">取消</string>
+
+    <string name="tab_spot">現貨</string>
+    <string name="tab_futures">期貨</string>
+
+</resources>
