@@ -1,6 +1,7 @@
 package com.eulsapet.nogleproject.view.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +13,15 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.eulsapet.nogleproject.databinding.FragmentABinding
+import com.eulsapet.nogleproject.repository.ApiService.Companion.WebSocketInstance
 import com.eulsapet.nogleproject.repository.FragmentARepository
 import com.eulsapet.nogleproject.view.adapter.MarketListAdapter
 import com.eulsapet.nogleproject.viewmodel.FragmentAViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import okhttp3.*
+import okio.ByteString
 
 class FragmentA: Fragment() {
     /**
@@ -61,6 +66,7 @@ class FragmentA: Fragment() {
         }
         initView()
         viewModel.getMarketList()
+        viewModel.connectSocket()
         checkTab()
     }
 
