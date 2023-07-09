@@ -29,6 +29,7 @@ class FragmentD: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // 前往設定頁
         binding.ibSetting.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_fg_d_to_fg_setting)
         }

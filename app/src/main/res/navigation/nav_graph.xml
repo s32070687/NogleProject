@@ -31,7 +31,6 @@
 
         <action
             android:id="@+id/action_fg_d_to_fg_setting"
-            app:popUpTo="@+id/fg_d"
             app:destination="@id/fg_setting" />
 
     </fragment>

@@ -7,10 +7,6 @@
     <string name="tab_d">Page D</string>
     <string name="tab_setting">設定</string>
 
-    <string name="msg_leave">關閉APP?</string>
-    <string name="msg_confirm">確認</string>
-    <string name="msg_cancel">取消</string>
-
     <string name="tab_spot">現貨</string>
     <string name="tab_futures">期貨</string>
 

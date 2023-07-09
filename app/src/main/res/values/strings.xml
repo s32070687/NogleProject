@@ -7,10 +7,6 @@
     <string name="tab_d">Page D</string>
     <string name="tab_setting">Setting</string>
 
-    <string name="msg_leave">Close APP?</string>
-    <string name="msg_confirm">Confirm</string>
-    <string name="msg_cancel">Cancel</string>
-
     <string name="tab_spot">Spot</string>
     <string name="tab_futures">Futures</string>
 
