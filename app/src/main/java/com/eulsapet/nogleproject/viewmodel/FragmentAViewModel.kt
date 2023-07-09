@@ -30,7 +30,6 @@ class FragmentAViewModel(
     fun connectSocket() {
         viewModelScope.launch {
             val call = mainRepository.connectWebSocket()
-            call.
         }
 //        val client = OkHttpClient()
 //        val request = Request.Builder().url("wss://ws.btse.com/ws/future").build()
