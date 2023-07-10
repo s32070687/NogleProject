@@ -13,7 +13,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.eulsapet.nogleproject.databinding.FragmentABinding
-import com.eulsapet.nogleproject.repository.ApiService.Companion.WebSocketInstance
 import com.eulsapet.nogleproject.repository.FragmentARepository
 import com.eulsapet.nogleproject.view.adapter.MarketListAdapter
 import com.eulsapet.nogleproject.viewmodel.FragmentAViewModel

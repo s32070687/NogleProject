@@ -1,8 +1,11 @@
 package com.eulsapet.nogleproject.repository
 
+import kotlinx.coroutines.flow.flow
+import okhttp3.Request
+
 class FragmentARepository(
     private val apiService: ApiService = ApiService.Instance,
-    private val socketService: ApiService = ApiService.WebSocketInstance
+    private val socketService: Request = ApiService.WebSocketInstance
 ) {
     /**
      * 市場列表
@@ -12,5 +15,7 @@ class FragmentARepository(
     /**
      * WebSocket
      */
-    suspend fun connectWebSocket() = socketService.webSocket()
+    suspend fun connectWebSocket() = flow {
+
+    }
 }

@@ -2,6 +2,7 @@ package com.eulsapet.nogleproject.repository
 
 import com.eulsapet.nogleproject.repository.model.MarketList
 import com.eulsapet.nogleproject.repository.model.WebSocket
+import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
@@ -11,7 +12,7 @@ interface ApiService {
 
     companion object {
         private const val BASE_URL = "https://api.btse.com/"
-        private const val WEB_SOCKET_BASE_URL = "wss://ws.btse.com/"
+        private const val WEB_SOCKET_BASE_URL = "wss://ws.btse.com/ws/futures"
 
         private fun createApiClient(): ApiService {
             val builder = Retrofit.Builder()
@@ -22,12 +23,11 @@ interface ApiService {
         }
         val Instance by lazy { createApiClient() }
 
-        private fun createWebSocketClient(): ApiService {
-            val builder = Retrofit.Builder()
-                .baseUrl(WEB_SOCKET_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-            return builder.create()
+        private fun createWebSocketClient(): Request {
+            val builder = Request.Builder()
+                .url(WEB_SOCKET_BASE_URL)
+
+            return builder.build()
         }
         val WebSocketInstance by lazy { createWebSocketClient() }
     }
@@ -35,6 +35,4 @@ interface ApiService {
     @GET("futures/api/inquire/initial/market")
     suspend fun markList(): MarketList
 
-    @GET("ws/future")
-    suspend fun webSocket(): WebSocket
 }

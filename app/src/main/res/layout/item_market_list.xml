@@ -33,7 +33,7 @@
         <TextView
             android:ellipsize="end"
             android:id="@+id/tv_price"
-            tools:text="2000"
+            tools:text="3.93666629125"
             android:text="@{items.marketName}"
             android:textSize="16sp"
             android:textStyle="bold"

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import com.eulsapet.nogleproject.repository.ApiService.Companion.WebSocketInstance
 import com.eulsapet.nogleproject.repository.FragmentARepository
 import com.eulsapet.nogleproject.repository.model.MarketList
 import kotlinx.coroutines.Dispatchers
@@ -29,31 +30,31 @@ class FragmentAViewModel(
 
     fun connectSocket() {
         viewModelScope.launch {
-            val call = mainRepository.connectWebSocket()
+            val client = OkHttpClient()
+            val request = WebSocketInstance
+
+            val socketListener = object : WebSocketListener() {
+                override fun onOpen(webSocket: WebSocket, response: Response) {
+                    val subscribeRequest = """{"op": "subscribe", "args": ["coinIndex"]}"""
+                    webSocket.send(subscribeRequest)
+                    Log.e("Jason", "onOpen response: $response")
+                }
+
+                override fun onMessage(webSocket: WebSocket, text: String) {
+                    Log.e("Jason", "onMessage text: $text")
+                }
+
+                override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
+                    Log.e("Jason", "onMessage bytes: $bytes")
+                }
+
+                override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
+                    Log.e("Jason", "onFailure Throwable: ${t.message}")
+                }
+            }
+
+            val webSocket = client.newWebSocket(request, socketListener)
+            webSocket.request()
         }
-//        val client = OkHttpClient()
-//        val request = Request.Builder().url("wss://ws.btse.com/ws/future").build()
-//
-//        val socketListener = object : WebSocketListener() {
-//            override fun onOpen(webSocket: WebSocket, response: Response) {
-//                val subscribeRequest = """{"op": "subscribe", "args": ["coinIndex"]}"""
-//                webSocket.send(subscribeRequest)
-//            }
-//
-//            override fun onMessage(webSocket: WebSocket, text: String) {
-//                Log.e("Jason", "Received message: $text")
-//            }
-//
-//            override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
-//                // 处理收到的字节消息
-//            }
-//
-//            override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-//                Log.e("Jason", "WebSocket failure: ${t.message}")
-//            }
-//        }
-//
-//        val webSocket = client.newWebSocket(request, socketListener)
-//        webSocket.awaitClosed()
     }
 }
