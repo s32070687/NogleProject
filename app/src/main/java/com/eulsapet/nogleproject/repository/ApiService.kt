@@ -1,7 +1,6 @@
 package com.eulsapet.nogleproject.repository
 
 import com.eulsapet.nogleproject.repository.model.MarketList
-import com.eulsapet.nogleproject.repository.model.WebSocket
 import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

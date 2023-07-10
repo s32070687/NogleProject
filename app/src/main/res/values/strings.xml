@@ -7,6 +7,8 @@
     <string name="tab_d">Page D</string>
     <string name="tab_setting">Setting</string>
 
+    <string name="api_error_msg">data empty! Please try again later</string>
+
     <string name="tab_spot">Spot</string>
     <string name="tab_futures">Futures</string>
 

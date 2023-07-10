@@ -7,6 +7,8 @@
     <string name="tab_d">Page D</string>
     <string name="tab_setting">設定</string>
 
+    <string name="api_error_msg">目前無資料! 請稍後在試</string>
+
     <string name="tab_spot">現貨</string>
     <string name="tab_futures">期貨</string>
 

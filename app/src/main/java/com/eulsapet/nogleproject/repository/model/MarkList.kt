@@ -4,7 +4,7 @@ data class MarketList(
     val code: Int = 0,
     val msg: String = "",
     val time: Long = 0,
-    val data: List<Data> = emptyList()
+    val data: List<Data>
 )
 
 data class Data(
