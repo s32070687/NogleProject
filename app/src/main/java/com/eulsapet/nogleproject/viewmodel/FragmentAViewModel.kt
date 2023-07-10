@@ -29,35 +29,9 @@ class FragmentAViewModel(
                 _data.value = it
             }
         }
-    }
 
-    fun connectSocket() {
         viewModelScope.launch {
-            val client = OkHttpClient()
-            val request = WebSocketInstance
-
-            val socketListener = object : WebSocketListener() {
-                override fun onOpen(webSocket: WebSocket, response: Response) {
-                    val subscribeRequest = """{"op": "subscribe", "args": ["coinIndex"]}"""
-                    webSocket.send(subscribeRequest)
-                    Log.e("Jason", "onOpen response: $response")
-                }
-
-                override fun onMessage(webSocket: WebSocket, text: String) {
-                    Log.e("Jason", "onMessage text: $text")
-                }
-
-                override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
-                    Log.e("Jason", "onMessage bytes: $bytes")
-                }
-
-                override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-                    Log.e("Jason", "onFailure Throwable: ${t.message}")
-                }
-            }
-
-            val webSocket = client.newWebSocket(request, socketListener)
-            webSocket.request()
+            mainRepository.connectWebSocket()
         }
     }
 }

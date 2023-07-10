@@ -64,7 +64,6 @@ class FragmentA: Fragment() {
         }
         initView()
         viewModel.getMarketList()
-        viewModel.connectSocket()
         observe()
     }
 

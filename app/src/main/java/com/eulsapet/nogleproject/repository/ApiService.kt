@@ -1,6 +1,7 @@
 package com.eulsapet.nogleproject.repository
 
 import com.eulsapet.nogleproject.repository.model.MarketList
+import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -29,6 +30,12 @@ interface ApiService {
             return builder.build()
         }
         val WebSocketInstance by lazy { createWebSocketClient() }
+
+        private fun createOkHttpClient(): OkHttpClient {
+            return OkHttpClient()
+        }
+
+        val okHttpClient by lazy { createOkHttpClient() }
     }
 
     @GET("futures/api/inquire/initial/market")
