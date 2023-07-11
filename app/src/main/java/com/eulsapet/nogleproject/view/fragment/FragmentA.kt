@@ -19,8 +19,8 @@ import com.eulsapet.nogleproject.repository.FragmentARepository
 import com.eulsapet.nogleproject.view.adapter.MarketListAdapter
 import com.eulsapet.nogleproject.viewmodel.FragmentAViewModel
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 class FragmentA: Fragment() {
     /**
@@ -83,17 +83,17 @@ class FragmentA: Fragment() {
 
                         is BaseCallBackStatus.SUCCESS -> {
                             binding.pbLoading.visibility = View.GONE
-                            if (it.data.data.isNotEmpty()) {
+                            if (it.data.data?.isNotEmpty() == true) {
                                 if (binding.rbSpot.isChecked) {
                                     // 現貨
-                                    val spotData = it.data.data.filter { tab -> !tab.future }
+                                    val spotData = it.data.data.filter { tab -> tab.future != true }
                                     markListAdapter.submitList(
                                         spotData.sortedBy { data ->
                                             data.marketName
                                         })
                                 } else {
                                     // 期貨
-                                    val spotData = it.data.data.filter { tab -> tab.future }
+                                    val spotData = it.data.data.filter { tab -> tab.future == true }
                                     markListAdapter.submitList(
                                         spotData.sortedBy { data ->
                                             data.marketName
@@ -112,17 +112,16 @@ class FragmentA: Fragment() {
             }
         }
 
-        lifecycleScope.launch {
-            viewModel.messageData.observe(viewLifecycleOwner) {
-//                Log.e("Jason","RRRR $it")
-            }
-        }
-
-        lifecycleScope.launch {
-            viewModel.mediatorLiveData.observe(viewLifecycleOwner) {
-                Log.e("Jason","$it ??")
-            }
-        }
+//        lifecycleScope.launch {
+//            viewModel.messageData.observe(viewLifecycleOwner) {
+////                Log.e("Jason","RRRR $it")
+//            }
+//        }
+//
+//        lifecycleScope.launch {
+//            viewModel.mediatorLiveData.observe(viewLifecycleOwner) {
+//            }
+//        }
     }
 
     override fun onDestroyView() {

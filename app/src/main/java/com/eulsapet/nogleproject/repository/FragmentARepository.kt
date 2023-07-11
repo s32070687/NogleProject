@@ -4,6 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.eulsapet.nogleproject.repository.model.MarketList
+import com.eulsapet.nogleproject.repository.model.WebSocketResponse
+import com.eulsapet.nogleproject.repository.model.WebSocketResponseTypeToken
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okhttp3.OkHttpClient
@@ -22,9 +25,9 @@ class FragmentARepository(
         private const val WEBSOCKET_REQUEST = "{\"op\": \"subscribe\", \"args\": [\"coinIndex\"]}"
     }
 
-    private val _msg = MutableLiveData("")
+    private val _msg = MutableLiveData(WebSocketResponse())
 
-    val msg: LiveData<String> get() = _msg
+    val msg: LiveData<WebSocketResponse> get() = _msg
 
     /**
      * 市場列表
@@ -34,7 +37,7 @@ class FragmentARepository(
             markList()
         }.onSuccess {
             when {
-                it.data.isEmpty() -> emit(BaseCallBackStatus.ERROR("empty"))
+                it.data.isNullOrEmpty() -> emit(BaseCallBackStatus.ERROR("empty"))
                 else -> emit(BaseCallBackStatus.SUCCESS(it))
             }
         }.onFailure {
@@ -47,13 +50,18 @@ class FragmentARepository(
      */
     fun connectWebSocket() {
         val socketListener = object : WebSocketListener() {
+
+            val gson = Gson()
+
             override fun onOpen(webSocket: WebSocket, response: Response) {
                 webSocket.send(WEBSOCKET_REQUEST)
                 Log.e("Jason", "onOpen response: $response")
             }
 
             override fun onMessage(webSocket: WebSocket, text: String) {
-                _msg.postValue(text)
+                val data: WebSocketResponse = gson.fromJson(text, WebSocketResponseTypeToken.type)
+                if (data.topic != "coinIndex") return
+                _msg.postValue(data)
             }
 
             override fun onMessage(webSocket: WebSocket, bytes: ByteString) {

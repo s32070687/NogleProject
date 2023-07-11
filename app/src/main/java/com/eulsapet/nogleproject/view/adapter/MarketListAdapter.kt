@@ -13,10 +13,10 @@ class MarketListAdapter: ListAdapter<Data, MarketListAdapter.MarketListViewHolde
     companion object {
         val ITEM_LIST = object: DiffUtil.ItemCallback<Data>() {
             override fun areItemsTheSame(oldItem: Data, newItem: Data): Boolean =
-                oldItem == newItem
+                oldItem.symbol == newItem.symbol
 
             override fun areContentsTheSame(oldItem: Data, newItem: Data): Boolean =
-                oldItem.sortId == newItem.sortId
+                oldItem == newItem
         }
     }
 
