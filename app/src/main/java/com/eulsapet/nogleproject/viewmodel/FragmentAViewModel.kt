@@ -31,8 +31,6 @@ class FragmentAViewModel(
                 postValue(it)
             }
             addSource(messageData) { webSocketResponse ->
-                //Log.e("Jason cc","$webSocketResponse webSocket")
-//            mediatorLiveData.value = it
                 val marketList = (value as? BaseCallBackStatus.SUCCESS)?.data ?: return@addSource
                 val marketListData = marketList.data
                 val webSocketResponseData = webSocketResponse.data
@@ -52,11 +50,6 @@ class FragmentAViewModel(
                     }
                 )
                 postValue(BaseCallBackStatus.SUCCESS(newMarketList))
-//                    .forEach { _, dataItem ->
-//                        val name  = dataItem.name
-//                        val price = dataItem.price
-//                        Log.e("Jason cc", "$name = $price")
-//                    }
             }
         }
     }

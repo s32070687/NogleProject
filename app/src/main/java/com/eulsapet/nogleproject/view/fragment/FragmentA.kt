@@ -1,7 +1,6 @@
 package com.eulsapet.nogleproject.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,6 @@ import com.eulsapet.nogleproject.view.adapter.MarketListAdapter
 import com.eulsapet.nogleproject.viewmodel.FragmentAViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 
 class FragmentA: Fragment() {
     /**
@@ -111,17 +109,6 @@ class FragmentA: Fragment() {
                 }
             }
         }
-
-//        lifecycleScope.launch {
-//            viewModel.messageData.observe(viewLifecycleOwner) {
-////                Log.e("Jason","RRRR $it")
-//            }
-//        }
-//
-//        lifecycleScope.launch {
-//            viewModel.mediatorLiveData.observe(viewLifecycleOwner) {
-//            }
-//        }
     }
 
     override fun onDestroyView() {
