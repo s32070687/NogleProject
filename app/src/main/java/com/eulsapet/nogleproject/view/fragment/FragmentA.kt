@@ -1,6 +1,7 @@
 package com.eulsapet.nogleproject.view.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -74,7 +75,7 @@ class FragmentA: Fragment() {
     private fun observe() {
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.data.collectLatest {
+                viewModel.data.observe(viewLifecycleOwner) {
                     when (it) {
                         is BaseCallBackStatus.LOADING -> {
                             binding.pbLoading.visibility = if (it.loading) View.VISIBLE else View.GONE
@@ -108,6 +109,18 @@ class FragmentA: Fragment() {
                         }
                     }
                 }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.messageData.observe(viewLifecycleOwner) {
+//                Log.e("Jason","RRRR $it")
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.mediatorLiveData.observe(viewLifecycleOwner) {
+                Log.e("Jason","$it ??")
             }
         }
     }

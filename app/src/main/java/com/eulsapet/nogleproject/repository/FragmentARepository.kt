@@ -1,6 +1,8 @@
 package com.eulsapet.nogleproject.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.eulsapet.nogleproject.repository.model.MarketList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -16,6 +18,14 @@ class FragmentARepository(
     private val socketService: Request = ApiService.WebSocketInstance,
     private val client: OkHttpClient = ApiService.okHttpClient
 ) {
+    companion object {
+        private const val WEBSOCKET_REQUEST = "{\"op\": \"subscribe\", \"args\": [\"coinIndex\"]}"
+    }
+
+    private val _msg = MutableLiveData("")
+
+    val msg: LiveData<String> get() = _msg
+
     /**
      * 市場列表
      */
@@ -35,16 +45,15 @@ class FragmentARepository(
     /**
      * WebSocket
      */
-    suspend fun connectWebSocket() {
+    fun connectWebSocket() {
         val socketListener = object : WebSocketListener() {
             override fun onOpen(webSocket: WebSocket, response: Response) {
-                val subscribeRequest = """{"op": "subscribe", "args": ["coinIndex"]}"""
-                webSocket.send(subscribeRequest)
+                webSocket.send(WEBSOCKET_REQUEST)
                 Log.e("Jason", "onOpen response: $response")
             }
 
             override fun onMessage(webSocket: WebSocket, text: String) {
-                Log.e("Jason", "onMessage text: $text")
+                _msg.postValue(text)
             }
 
             override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
@@ -53,6 +62,7 @@ class FragmentARepository(
 
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
                 Log.e("Jason", "onFailure Throwable: ${t.message}")
+                webSocket.cancel()
             }
         }
 
