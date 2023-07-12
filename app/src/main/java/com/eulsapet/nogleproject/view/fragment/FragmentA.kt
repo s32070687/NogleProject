@@ -67,7 +67,13 @@ class FragmentA: Fragment() {
     }
 
     private fun initView() {
-        binding.rgGroup.setOnCheckedChangeListener { _, _ -> observe() }
+        binding.cbSpot.addOnCheckedStateChangedListener  { view, _ ->
+            observe()
+        }
+        
+        binding.cbFutures.addOnCheckedStateChangedListener { view, _ ->
+            observe()
+        }
     }
 
     private fun observe() {
@@ -82,18 +88,24 @@ class FragmentA: Fragment() {
                         is BaseCallBackStatus.SUCCESS -> {
                             binding.pbLoading.visibility = View.GONE
                             if (it.data.data?.isNotEmpty() == true) {
-                                if (binding.rbSpot.isChecked) {
+                                if (binding.cbSpot.isChecked && !binding.cbFutures.isChecked) {
                                     // 現貨
                                     val spotData = it.data.data.filter { tab -> tab.future != true }
                                     markListAdapter.submitList(
                                         spotData.sortedBy { data ->
                                             data.marketName
                                         })
-                                } else {
+                                } else if (binding.cbFutures.isChecked && !binding.cbSpot.isChecked) {
                                     // 期貨
                                     val spotData = it.data.data.filter { tab -> tab.future == true }
                                     markListAdapter.submitList(
                                         spotData.sortedBy { data ->
+                                            data.marketName
+                                        })
+                                } else {
+                                    // 顯示全部
+                                    markListAdapter.submitList(
+                                        it.data.data.sortedBy { data ->
                                             data.marketName
                                         })
                                 }

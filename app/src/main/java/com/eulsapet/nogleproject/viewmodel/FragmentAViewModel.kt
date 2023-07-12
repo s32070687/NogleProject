@@ -34,18 +34,12 @@ class FragmentAViewModel(
                 val marketList = (value as? BaseCallBackStatus.SUCCESS)?.data ?: return@addSource
                 val marketListData = marketList.data
                 val webSocketResponseData = webSocketResponse.data
-                    ?.filter {
-                        it.value.type == 1
-                    }?.map { (_, dataItem) ->
-                        dataItem.name to dataItem.price
-                    }?.groupBy(
-                        keySelector = { pair -> pair.first },
-                        valueTransform = { pair -> pair.second }
-                    )
+                    ?.filter { it.value.type == 1 }
+                    ?.map { (_, dataItem) -> dataItem }
+                    ?.groupBy { dataItem -> dataItem.name }
                 val newMarketList = marketList.copy(
                     data = marketListData?.map {
-                        Log.e("Jason cc","$it webSocket")
-                        val price = webSocketResponseData?.get(it.symbol)?.first() ?: it.price
+                        val price = webSocketResponseData?.get(it.symbol)?.first()?.price ?: it.price
                         it.copy(price = price)
                     }
                 )
