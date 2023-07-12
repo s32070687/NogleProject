@@ -1,13 +1,13 @@
 package com.eulsapet.nogleproject.repository
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.eulsapet.nogleproject.repository.model.MarketList
 import com.eulsapet.nogleproject.repository.model.WebSocketResponse
 import com.eulsapet.nogleproject.repository.model.WebSocketResponseTypeToken
 import com.google.gson.Gson
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -25,14 +25,10 @@ class FragmentARepository(
         private const val WEBSOCKET_REQUEST = "{\"op\": \"subscribe\", \"args\": [\"coinIndex\"]}"
     }
 
-    private val _msg = MutableLiveData(WebSocketResponse())
-
-    val msg: LiveData<WebSocketResponse> get() = _msg
-
     /**
      * 市場列表
      */
-    suspend fun getMarkList(): Flow<BaseCallBackStatus<MarketList>> = flow {
+    fun getMarkList(): Flow<BaseCallBackStatus<MarketList>> = flow {
         apiService.runCatching {
             markList()
         }.onSuccess {
@@ -48,7 +44,7 @@ class FragmentARepository(
     /**
      * WebSocket
      */
-    fun connectWebSocket() {
+    fun connectWebSocket(): Flow<WebSocketResponse> = callbackFlow {
         val socketListener = object : WebSocketListener() {
 
             val gson = Gson()
@@ -61,7 +57,7 @@ class FragmentARepository(
             override fun onMessage(webSocket: WebSocket, text: String) {
                 val data: WebSocketResponse = gson.fromJson(text, WebSocketResponseTypeToken.type)
                 if (data.topic != "coinIndex") return
-                _msg.postValue(data)
+                trySend(data)
             }
 
             override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
@@ -76,5 +72,7 @@ class FragmentARepository(
 
         val webSocket = client.newWebSocket(socketService, socketListener)
         webSocket.request()
+
+        awaitClose { webSocket.cancel() }
     }
 }

@@ -1,6 +1,5 @@
 package com.eulsapet.nogleproject.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.eulsapet.nogleproject.repository.BaseCallBackStatus
 import com.eulsapet.nogleproject.repository.FragmentARepository
@@ -14,10 +13,10 @@ class FragmentAViewModel(
 ): ViewModel() {
 
     // 來自 Restful API
-    private val _data = MutableLiveData<BaseCallBackStatus<MarketList>>()
+    private val marketListData = MutableLiveData<BaseCallBackStatus<MarketList>>()
 
     // 來自 WebSock
-    private val messageData: LiveData<WebSocketResponse> get() = mainRepository.msg
+    private val webSocketMsg = MutableLiveData<WebSocketResponse>()
 
     // 匯整 以上兩隻資料流
     private val mediatorLiveData = MediatorLiveData<BaseCallBackStatus<MarketList>>(BaseCallBackStatus.LOADING(true))
@@ -27,10 +26,10 @@ class FragmentAViewModel(
 
     init {
         with(mediatorLiveData) {
-            addSource(_data) {
+            addSource(marketListData) {
                 postValue(it)
             }
-            addSource(messageData) { webSocketResponse ->
+            addSource(webSocketMsg) { webSocketResponse ->
                 val marketList = (value as? BaseCallBackStatus.SUCCESS)?.data ?: return@addSource
                 val marketListData = marketList.data
                 val webSocketResponseData = webSocketResponse.data
@@ -49,16 +48,18 @@ class FragmentAViewModel(
     }
 
     fun getMarketList() {
-        _data.value = BaseCallBackStatus.LOADING(true)
+        marketListData.value = BaseCallBackStatus.LOADING(true)
         viewModelScope.launch {
             launch {
                 mainRepository.getMarkList().collectLatest {
-                    _data.value = it
+                    marketListData.value = it
                 }
             }
 
             launch {
-                mainRepository.connectWebSocket()
+                mainRepository.connectWebSocket().collectLatest {
+                    webSocketMsg.value = it
+                }
             }
         }
     }
