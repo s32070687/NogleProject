@@ -31,7 +31,7 @@ class FragmentD: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // 前往設定頁
         binding.ibSetting.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_fg_d_to_fg_setting)
+            Navigation.findNavController(it).navigate(R.id.action_fg_d_to_ac_setting)
         }
     }
 

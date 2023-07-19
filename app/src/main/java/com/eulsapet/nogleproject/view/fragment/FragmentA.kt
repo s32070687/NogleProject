@@ -67,11 +67,11 @@ class FragmentA: Fragment() {
     }
 
     private fun initView() {
-        binding.cbSpot.addOnCheckedStateChangedListener  { view, _ ->
+        binding.cbSpot.addOnCheckedStateChangedListener  { _, _ ->
             observe()
         }
         
-        binding.cbFutures.addOnCheckedStateChangedListener { view, _ ->
+        binding.cbFutures.addOnCheckedStateChangedListener { _, _ ->
             observe()
         }
     }
